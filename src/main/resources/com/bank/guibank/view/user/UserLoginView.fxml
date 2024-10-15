@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" stylesheets="@../../css/user/UserLogin.css"
+      fx:controller="com.bank.guibank.controller.user.UserLoginController"
+      styleClass="container">
+    <Label text="Log In As User" styleClass="title"/>
+    <HBox styleClass="block">
+        <Label text="Username"/>
+        <TextField fx:id="username"/>
+    </HBox>
+    <HBox styleClass="block">
+        <Label text="Password"/>
+        <PasswordField fx:id="password" onAction="#handleLoginRequest"/>
+    </HBox>
+    <Label text="Wrong username or password"
+           fx:id="errorMessage" styleClass="error-message"/>
+    <Button text="Login" onMouseClicked="#handleLoginRequest"/>
+    <Button text="Go Back" onMouseClicked="#goBackBtnAction"/>
+</VBox>

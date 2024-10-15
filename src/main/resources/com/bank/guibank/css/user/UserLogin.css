@@ -1,0 +1,55 @@
+.container {
+    -fx-pref-height: 300;
+    -fx-pref-width: 400;
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+.title {
+    -fx-font-weight: bold;
+    -fx-font-size: 24;
+}
+
+.block *,
+.button {
+    -fx-font-size: 16;
+}
+
+.block {
+    -fx-pref-width: 300;
+    -fx-pref-height: 40;
+    -fx-alignment: center;
+}
+
+.block .label {
+    -fx-pref-width: 100;
+}
+
+.text-field,
+.password-field {
+    -fx-pref-width: 200;
+}
+
+.button {
+    -fx-pref-width: 300;
+    -fx-pref-height: 40;
+    -fx-background-color: lightgreen;
+}
+
+.button:hover {
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.button:pressed {
+    -fx-background-color: green;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.error-message {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-opacity: 0;
+}

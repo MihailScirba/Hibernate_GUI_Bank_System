@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" styleClass="container"
+      fx:controller="com.bank.guibank.controller.user.UserController"
+      stylesheets="@../../css/user/UserDashboard.css">
+
+    <VBox styleClass="menu-container">
+        <Button onMouseClicked="#showData">Show my data</Button>
+        <Button>Deposit</Button>
+        <Button>Withdraw</Button>
+        <Button>Transfers</Button>
+        <Button wrapText="true">Remove my account</Button>
+        <Button>Log out</Button>
+    </VBox>
+
+    <VBox styleClass="content-container">
+        <TableView fx:id="tableView" styleClass="data-table">
+            <columns>
+                <TableColumn text="Property"
+                             fx:id="propertyCol" styleClass="property-col"/>
+                <TableColumn text="Value"
+                             fx:id="valueCol" styleClass="value-col"/>
+            </columns>
+        </TableView>
+    </VBox>
+</HBox>

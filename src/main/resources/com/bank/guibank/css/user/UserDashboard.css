@@ -1,0 +1,52 @@
+.container {
+    -fx-pref-height: 500;
+    -fx-pref-width: 800;
+    -fx-spacing: 20;
+    -fx-padding: 10;
+}
+
+.menu-container {
+    -fx-background-color: lightgreen;
+    -fx-padding: 10;
+    -fx-spacing: 30;
+    -fx-alignment: center;
+
+    /*Border*/
+    -fx-background-radius: 10;
+}
+
+.menu-container .button {
+    -fx-pref-width: 150;
+    -fx-pref-height: 40;
+    -fx-background-color: lightgreen;
+    -fx-font-size: 16;
+
+    /*Border*/
+    -fx-border-style: solid;
+    -fx-border-width: 1;
+    -fx-border-color: green;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.menu-container .button:hover {
+    -fx-cursor: hand;
+    -fx-border-width: 2;
+}
+
+.menu-container .button:pressed {
+    -fx-background-color: green;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.content-container {
+    -fx-background-color: antiquewhite;
+    -fx-pref-width: 590;
+}
+
+.data-table {
+    -fx-font-size: 16;
+    -fx-background-color: transparent;
+    -fx-pref-height: 480;
+}

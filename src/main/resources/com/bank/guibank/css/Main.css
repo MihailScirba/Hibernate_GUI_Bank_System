@@ -1,0 +1,30 @@
+.container {
+    -fx-pref-height: 300;
+    -fx-pref-width: 400;
+    -fx-background-color: whitesmoke;
+    -fx-alignment: center   ;
+    -fx-spacing: 20;
+}
+
+.label {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-font-size: 16;
+    -fx-pref-width: 300;
+    -fx-pref-height: 40;
+    -fx-background-color: lightgreen;
+}
+
+.button:hover {
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.button:pressed {
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
