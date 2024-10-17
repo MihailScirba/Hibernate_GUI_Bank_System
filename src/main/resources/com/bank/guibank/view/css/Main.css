@@ -1,9 +1,9 @@
 .container {
-    -fx-pref-height: 300;
+    -fx-pref-height: 400;
     -fx-pref-width: 400;
     -fx-background-color: whitesmoke;
     -fx-alignment: center   ;
-    -fx-spacing: 20;
+    -fx-spacing: 30;
 }
 
 .label {

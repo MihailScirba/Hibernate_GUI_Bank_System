@@ -10,10 +10,10 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/com/bank/guibank/view/MainView.fxml"));
+                .getResource("/com/bank/guibank/view/user/Login.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
-        stage.setTitle(StageTitles.MAIN_PAGE);
+        stage.setTitle(StageTitles.USER_LOGIN);
         stage.centerOnScreen();
         stage.setResizable(false);
         stage.show();

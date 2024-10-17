@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.GridPane?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml" styleClass="container"
-      fx:controller="com.bank.guibank.controller.user.UserController"
-      stylesheets="@../../css/user/UserDashboard.css">
+      fx:controller="com.bank.guibank.controller.user.DashboardController"
+      stylesheets="@../css/user/Dashboard.css">
 
     <VBox styleClass="menu-container">
-        <Button onMouseClicked="#showData">Show my data</Button>
+        <Button onMouseClicked="#handleShowDataRequest">Show my data</Button>
         <Button>Deposit</Button>
         <Button>Withdraw</Button>
         <Button>Transfers</Button>

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <VBox xmlns="http://javafx.com/javafx"
-      stylesheets="@../css/Main.css"
+      stylesheets="@css/Main.css"
       xmlns:fx="http://javafx.com/fxml" styleClass="container"
       fx:controller="com.bank.guibank.controller.MainViewController">
 

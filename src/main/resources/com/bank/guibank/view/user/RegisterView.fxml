@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.bank.guibank.controller.user.RegisterController"
+      stylesheets="@../css/user/Register.css"
+      styleClass="container">
+
+    <Label text="Log In As User" styleClass="title"/>
+
+    <HBox styleClass="block">
+        <Label text="Username"/>
+        <TextField fx:id="username"/>
+    </HBox>
+    <HBox styleClass="block">
+        <Label text="Password"/>
+        <PasswordField fx:id="password"/>
+    </HBox>
+    <HBox styleClass="block">
+        <Label text="Confirm password" wrapText="true"/>
+        <PasswordField fx:id="passwordConfirmation"
+                       onAction="#handleRegisterRequest"/>
+    </HBox>
+
+    <Label text="Password confirmation failed"
+           fx:id="errorMessage" styleClass="error-message"/>
+
+    <Button text="Register" onMouseClicked="#handleRegisterRequest"/>
+    <Button text="Go Back" onMouseClicked="#goBackBtnAction"/>
+
+</VBox>

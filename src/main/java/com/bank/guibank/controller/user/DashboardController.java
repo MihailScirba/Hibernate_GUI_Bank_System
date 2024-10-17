@@ -13,7 +13,7 @@ import lombok.Setter;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 
-public class UserController {
+public class DashboardController {
     @FXML
     public TableColumn<TableRowData, String> propertyCol;
 
@@ -34,7 +34,8 @@ public class UserController {
         tableView.setFixedCellSize(89);
     }
 
-    public void showData() {
+    @FXML
+    public void handleShowDataRequest() {
         DateTimeFormatter formatter =
                 DateTimeFormatter.ofPattern("dd-MM-yyyy");
         DecimalFormat formatter2 = new DecimalFormat("#.##");

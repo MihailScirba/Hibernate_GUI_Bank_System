@@ -1,5 +1,5 @@
 .container {
-    -fx-pref-height: 300;
+    -fx-pref-height: 400;
     -fx-pref-width: 400;
     -fx-spacing: 10;
     -fx-alignment: center;
@@ -17,7 +17,7 @@
 
 .block {
     -fx-pref-width: 300;
-    -fx-pref-height: 40;
+    -fx-pref-height: 50;
     -fx-alignment: center;
 }
 
@@ -36,15 +36,15 @@
     -fx-background-color: lightgreen;
 }
 
-.button:hover {
-    -fx-background-radius: 10;
-    -fx-cursor: hand;
-}
-
 .button:pressed {
     -fx-background-color: green;
     -fx-font-weight: bold;
     -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
 }
 
 .error-message {

@@ -7,8 +7,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.PasswordField?>
 <VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml" stylesheets="@../../css/user/UserLogin.css"
-      fx:controller="com.bank.guibank.controller.user.UserLoginController"
+      xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/user/Login.css"
+      fx:controller="com.bank.guibank.controller.user.LoginController"
       styleClass="container">
     <Label text="Log In As User" styleClass="title"/>
     <HBox styleClass="block">
@@ -18,6 +18,10 @@
     <HBox styleClass="block">
         <Label text="Password"/>
         <PasswordField fx:id="password" onAction="#handleLoginRequest"/>
+    </HBox>
+    <HBox styleClass="register-container">
+        <Button text="Register an account" styleClass="register-btn"
+                onMouseClicked="#registerBtnAction"/>
     </HBox>
     <Label text="Wrong username or password"
            fx:id="errorMessage" styleClass="error-message"/>

@@ -16,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
-public class UserLoginController {
+public class LoginController {
     @FXML
     public TextField username;
 
@@ -34,6 +34,14 @@ public class UserLoginController {
         Scene mainScene = new Scene(fxmlLoader.load());
         StageManagement.switchScene(mouseEvent, mainScene,
                 StageTitles.MAIN_PAGE);
+    }
+
+    @FXML
+    public void registerBtnAction(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/com/bank/guibank/view/user/RegisterView.fxml"));
+        Scene scene = new Scene(loader.load());
+        StageManagement.switchScene(mouseEvent, scene, StageTitles.USER_REGISTER);
     }
 
     @FXML
@@ -55,9 +63,9 @@ public class UserLoginController {
     private void goToUserView(Event event, UserAccount userAccount)
             throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/com/bank/guibank/view/user/UserView.fxml"));
+                .getResource("/com/bank/guibank/view/user/DashboardView.fxml"));
         Parent root = loader.load();
-        ((UserController) loader.getController())
+        ((DashboardController) loader.getController())
                 .setUser(userAccount.getUser());
         Scene userScene = new Scene(root);
         StageManagement.switchScene(event, userScene,
@@ -67,6 +75,4 @@ public class UserLoginController {
     private boolean isValidAccount(UserAccount userAccount, String password) {
         return userAccount != null && userAccount.getPassword().equals(password);
     }
-
-
 }
