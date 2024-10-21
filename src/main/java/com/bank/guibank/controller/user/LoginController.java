@@ -30,7 +30,7 @@ public class LoginController {
     @FXML
     public void goBackBtnAction(MouseEvent mouseEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass()
-                .getResource("/com/bank/guibank/view/MainView.fxml"));
+                .getResource("/com/bank/guibank/view/MainPage.fxml"));
         Scene mainScene = new Scene(fxmlLoader.load());
         StageManagement.switchScene(mouseEvent, mainScene,
                 StageTitles.MAIN_PAGE);
@@ -39,9 +39,10 @@ public class LoginController {
     @FXML
     public void registerBtnAction(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/com/bank/guibank/view/user/RegisterView.fxml"));
-        Scene scene = new Scene(loader.load());
-        StageManagement.switchScene(mouseEvent, scene, StageTitles.USER_REGISTER);
+                .getResource("/com/bank/guibank/view/user/RegisterValidation.fxml"));
+        Scene registerPage1 = new Scene(loader.load());
+        StageManagement.switchScene(mouseEvent, registerPage1,
+                StageTitles.USER_REGISTER);
     }
 
     @FXML
@@ -63,7 +64,7 @@ public class LoginController {
     private void goToUserView(Event event, UserAccount userAccount)
             throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/com/bank/guibank/view/user/DashboardView.fxml"));
+                .getResource("/com/bank/guibank/view/user/Dashboard.fxml"));
         Parent root = loader.load();
         ((DashboardController) loader.getController())
                 .setUser(userAccount.getUser());

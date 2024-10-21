@@ -21,7 +21,16 @@ public class UserAccount {
     @Column(name = "user_password")
     private String password;
 
-    @OneToOne
+    @OneToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    public UserAccount() {
+    }
+
+    public UserAccount(String username, String password, User user) {
+        this.username = username;
+        this.password = password;
+        this.user = user;
+    }
 }

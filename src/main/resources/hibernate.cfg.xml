@@ -29,5 +29,6 @@
     <!-- Specify your entity classes -->
     <mapping class="com.bank.guibank.model.user.User"/>
     <mapping class="com.bank.guibank.model.user.UserAccount"/>
+    <mapping class="com.bank.guibank.model.transactions.Transaction"/>
   </session-factory>
 </hibernate-configuration>

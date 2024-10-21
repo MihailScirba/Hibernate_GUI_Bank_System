@@ -6,13 +6,29 @@ import org.hibernate.Session;
 import org.hibernate.query.SelectionQuery;
 
 public class UserAccountDAO {
-    @SuppressWarnings("FieldMayBeFinal")
-    private Session session = HibernateFactory.getSessionFactory().openSession();
 
     public UserAccount getUserAccountByUsername(String username) {
-        String hql = "from UserAccount where username=:username";
-        SelectionQuery<?> query = session.createSelectionQuery(hql);
-        query.setParameter("username", username);
-        return (UserAccount) query.uniqueResult();
+        try (Session session = HibernateFactory.getSessionFactory()
+                .openSession()) {
+            String hql = "from UserAccount where username=:username";
+            SelectionQuery<?> query = session.createSelectionQuery(hql);
+            query.setParameter("username", username);
+            return (UserAccount) query.uniqueResult();
+        }
+    }
+
+    public void addUserAccount(UserAccount userAccount) {
+        try (Session session = HibernateFactory.getSessionFactory()
+                .openSession()){
+            try {
+                session.beginTransaction();
+                userAccount.getUser().setAccount(true);
+                session.merge(userAccount.getUser());
+                session.persist(userAccount);
+                session.getTransaction().commit();
+            } catch (Exception e) {
+                session.getTransaction().rollback();
+            }
+        }
     }
 }

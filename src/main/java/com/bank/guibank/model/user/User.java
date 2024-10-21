@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column
     private int id;
 
     @Column(unique = true)
@@ -34,6 +34,9 @@ public class User {
     @Column(name = "has_account")
     private boolean account;
 
+    @OneToOne(mappedBy = "user")
+    private UserAccount userAccount;
+
     public User() {
 
     }
@@ -46,5 +49,13 @@ public class User {
         this.birthday = birthday;
         this.balance = balance;
         this.account = account;
+    }
+
+    public void deposit(double amount) {
+        this.balance += amount;
+    }
+
+    public void withdraw(double amount) {
+        this.balance -= amount;
     }
 }

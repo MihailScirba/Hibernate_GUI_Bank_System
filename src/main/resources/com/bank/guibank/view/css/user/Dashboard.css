@@ -15,9 +15,10 @@
     -fx-background-radius: 10;
 }
 
-.menu-container .button {
-    -fx-pref-width: 150;
-    -fx-pref-height: 40;
+.menu-container > .button {
+    -fx-pref-width: 180;
+    -fx-pref-height: 60;
+    -fx-text-alignment: center;
     -fx-background-color: lightgreen;
     -fx-font-size: 16;
 
@@ -29,12 +30,12 @@
     -fx-background-radius: 10;
 }
 
-.menu-container .button:hover {
+.menu-container > .button:hover {
     -fx-cursor: hand;
     -fx-border-width: 2;
 }
 
-.menu-container .button:pressed {
+.menu-container > .button:pressed {
     -fx-background-color: green;
     -fx-font-weight: bold;
     -fx-text-fill: white;
@@ -45,8 +46,48 @@
     -fx-pref-width: 590;
 }
 
-.data-table {
+.data-table-container {
     -fx-font-size: 16;
     -fx-background-color: transparent;
-    -fx-pref-height: 480;
+}
+
+.transaction-container {
+    -fx-alignment: center;
+    -fx-vgap: 40;
+}
+
+.transaction-container > * {
+    -fx-font-size: 16;
+}
+
+.transaction-container > .label {
+    -fx-pref-width: 200;
+}
+
+.text-field,
+.choice-box {
+    -fx-pref-width: 300;
+    -fx-pref-height: 35;
+}
+
+.recipient-inner-container {
+    -fx-alignment: center;
+    -fx-spacing: 15;
+}
+
+.button {
+    -fx-pref-width: 150;
+    -fx-pref-height: 35;
+    -fx-background-color: lightblue;
+}
+
+.button:hover {
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.button:pressed {
+    -fx-background-color: blue;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.bank.guibank.controller.user.RegisterValidationController"
+      stylesheets="@../css/user/Register.css"
+      styleClass="container">
+    <Label text="User validation" styleClass="title"/>
+
+    <HBox styleClass="block">
+        <Label text="Firstname"/>
+        <TextField fx:id="firstname"/>
+    </HBox>
+    <HBox styleClass="block">
+        <Label text="Lastname"/>
+        <TextField fx:id="lastname" onAction="#handleValidationRequest"/>
+    </HBox>
+
+    <Label text="Wrong username or password or user has account"
+           fx:id="errorMessage" styleClass="error-message"/>
+
+    <Button text="Go next" onMouseClicked="#handleValidationRequest"/>
+    <Button text="Go Back" onMouseClicked="#goBackBtnAction"/>
+</VBox>

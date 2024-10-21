@@ -9,7 +9,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
-public class MainViewController {
+public class MainPageController {
 
     @FXML
     public void userBtnAction(MouseEvent mouseEvent) throws IOException {

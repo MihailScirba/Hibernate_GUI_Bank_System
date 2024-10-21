@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.bank.guibank.controller.user.RegisterController"
+      fx:controller="com.bank.guibank.controller.user.RegistrationController"
       stylesheets="@../css/user/Register.css"
       styleClass="container">
 

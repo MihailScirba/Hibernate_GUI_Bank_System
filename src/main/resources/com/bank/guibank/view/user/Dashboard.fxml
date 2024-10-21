@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.bank.guibank.util.NumericField?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" styleClass="container"
+      fx:controller="com.bank.guibank.controller.user.DashboardController"
+      stylesheets="@../css/user/Dashboard.css">
+
+    <VBox styleClass="menu-container">
+        <Button onMouseClicked="#handleShowDataRequest">Show my data</Button>
+        <Button onMouseClicked="#showTransactionPanel">Make transaction</Button>
+        <Button wrapText="true">Remove my account</Button>
+        <Button onMouseClicked="#logOutAction">Log out</Button>
+    </VBox>
+
+    <VBox styleClass="content-container">
+
+        <TableView fx:id="dataTableContainer" styleClass="data-table-container">
+            <columns>
+                <TableColumn text="Property">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="property"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Value">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="value"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+
+        <GridPane fx:id="transactionContainer" styleClass="transaction-container">
+            <!--            Column 1-->
+            <Label text="Transaction type" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Label text="Amount" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="0">
+                <Label text="Recipient"/>
+            </AnchorPane>
+            <HBox alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="0">
+                <Button text="Clear" onMouseClicked="#clearTransactionForm"/>
+            </HBox>
+
+            <!--            Column 2-->
+            <ChoiceBox GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="operationType"
+                       onAction="#setEnableRecipientBox">
+                <String fx:value="Select operation"/>
+                <String fx:value="Deposit"/>
+                <String fx:value="Withdrawal"/>
+                <String fx:value="Transfer"/>
+            </ChoiceBox>
+
+            <NumericField GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="amount"/>
+
+            <VBox GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="recipientBox"
+                  styleClass="recipient-inner-container" disable="true">
+                <BorderPane>
+                    <top>
+                        <Label text="Firstname"/>
+                    </top>
+                    <center>
+                        <TextField fx:id="recipientFirstname"/>
+                    </center>
+                </BorderPane>
+                <BorderPane>
+                    <top>
+                        <Label text="Lastname"/>
+                    </top>
+                    <center>
+                        <TextField fx:id="recipientLastname"/>
+                    </center>
+                </BorderPane>
+            </VBox>
+
+            <HBox alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="1">
+                <Button text="Submit" onMouseClicked="#handleTransactionRequest"/>
+            </HBox>
+        </GridPane>
+
+    </VBox>
+</HBox>
