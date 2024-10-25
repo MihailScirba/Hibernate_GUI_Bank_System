@@ -19,9 +19,9 @@
         <TextField fx:id="lastname" onAction="#handleValidationRequest"/>
     </HBox>
 
-    <Label text="Wrong username or password or user has account"
+    <Label text="Wrong firstname or lastname or user has account"
            fx:id="errorMessage" styleClass="error-message"/>
 
     <Button text="Go next" onMouseClicked="#handleValidationRequest"/>
-    <Button text="Go Back" onMouseClicked="#goBackBtnAction"/>
+    <Button text="Go Back" onMouseClicked="#goToPreviousPage"/>
 </VBox>

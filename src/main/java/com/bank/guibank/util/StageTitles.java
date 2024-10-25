@@ -11,4 +11,7 @@ public class StageTitles {
 
     public static final String USER_DASHBOARD
             = "User Dashboard | Bank Application";
+
+    public static final String USER_FORGOT_PASSWORD =
+            "Forgot Password | Bank Application";
 }

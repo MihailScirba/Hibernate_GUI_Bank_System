@@ -28,7 +28,7 @@ public class RegisterValidationController {
     private User user;
 
     @FXML
-    public void goBackBtnAction(Event event) throws IOException {
+    public void goToPreviousPage(Event event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass()
                 .getResource("/com/bank/guibank/view/user/Login.fxml"));
         Scene loginScene = new Scene(fxmlLoader.load());

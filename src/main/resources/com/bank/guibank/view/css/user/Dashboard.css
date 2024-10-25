@@ -91,3 +91,31 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
+.change-password-container {
+    -fx-alignment: center;
+    -fx-spacing: 20;
+}
+
+.change-password-container > .block *,
+.change-password-container > .button {
+    -fx-font-size: 16;
+}
+
+.change-password-container > .block {
+    -fx-pref-width: 300;
+    -fx-pref-height: 40;
+    -fx-alignment: center;
+}
+
+.change-password-container > .block > .label {
+    -fx-pref-width: 150;
+}
+
+.change-password-container > .password-field {
+    -fx-pref-width: 200;
+}
+
+.change-password-container > .button {
+    -fx-pref-width: 200;
+}

@@ -1,10 +1,9 @@
 package com.bank.guibank.controller.user;
 
 import com.bank.guibank.controller.user.utils.TableRowData;
-import com.bank.guibank.model.database.transaction.TransactionDAO;
-import com.bank.guibank.model.transactions.Transaction;
-import com.bank.guibank.model.transactions.utils.TransactionType;
+import com.bank.guibank.model.database.user.UserDAO;
 import com.bank.guibank.model.user.User;
+import com.bank.guibank.model.user.exceptions.NotEnoughMoneyException;
 import com.bank.guibank.util.StageManagement;
 import com.bank.guibank.util.StageTitles;
 import javafx.collections.FXCollections;
@@ -13,28 +12,25 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DashboardController {
 
     private final String[] TRANSACTION_ERROR_MESSAGES = {
-            "Invalid transaction type", "Not enough money",
-            "Not entered amount", "Wrong number format",
-            "Not received recipient data"
+            "Invalid transaction type", "Not entered amount",
+            "Wrong number format", "Not entered recipient data",
+            "Something went wrong", "Recipient not found"
     };
 
     private final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#.##");
@@ -47,6 +43,9 @@ public class DashboardController {
 
     @FXML
     public GridPane transactionContainer;
+
+    @FXML
+    public Label balance;
 
     @FXML
     public ChoiceBox<String> operationType;
@@ -63,6 +62,14 @@ public class DashboardController {
     @FXML
     public TextField recipientLastname;
 
+    @FXML
+    public VBox passwordChangeContainer;
+
+    @FXML
+    public PasswordField newPassword;
+
+    @FXML
+    public PasswordField newPasswordConfirmation;
 
     @FXML
     public void initialize() {
@@ -80,9 +87,12 @@ public class DashboardController {
 
         transactionContainer.setOpacity(0);
         transactionContainer.setManaged(false);
+
+        passwordChangeContainer.setOpacity(0);
+        passwordChangeContainer.setManaged(false);
     }
 
-    private void displayPanel(Node node) {
+    private void displayPanel(@NotNull Node node) {
         node.setOpacity(1);
         node.setManaged(true);
         VBox.setVgrow(node, Priority.ALWAYS);
@@ -109,6 +119,7 @@ public class DashboardController {
     @FXML
     public void showTransactionPanel() {
         clearPanel();
+        updateBalanceTextField();
         displayPanel(transactionContainer);
     }
 
@@ -124,23 +135,17 @@ public class DashboardController {
     }
 
     @FXML
-    public void clearTransactionForm() {
-        operationType.getSelectionModel().clearAndSelect(0);
-        amount.clear();
-        recipientFirstname.clear();
-        recipientLastname.clear();
-    }
-
-    @FXML
     public void handleTransactionRequest() {
         String transactionError = isValidTransactionInput();
         if (transactionError != null) {
-            showErrorMessage(transactionError);
+            showErrorTransactionMessage(transactionError);
             return;
         }
+        var amount = Double.parseDouble(this.amount.getText());
         switch (operationType.getSelectionModel().getSelectedIndex()) {
-            case 1 -> executeTransaction(TransactionType.DEPOSIT);
-            case 2 -> executeTransaction(TransactionType.WITHDRAWAL);
+            case 1 -> deposit(amount);
+            case 2 -> withdraw(amount);
+            case 3 -> transfer(amount);
         }
         clearTransactionForm();
     }
@@ -150,20 +155,16 @@ public class DashboardController {
             return TRANSACTION_ERROR_MESSAGES[0];
         }
         if (amount.getText().isEmpty()) {
-            return TRANSACTION_ERROR_MESSAGES[2];
+            return TRANSACTION_ERROR_MESSAGES[1];
         }
         try {
-            var amount = Double.parseDouble(this.amount.getText());
-            if (operationType.getSelectionModel().getSelectedIndex() != 1
-                    && user.getBalance() < amount) {
-                return TRANSACTION_ERROR_MESSAGES[1];
-            }
+            Double.parseDouble(this.amount.getText());
         } catch (NumberFormatException e) {
-            return TRANSACTION_ERROR_MESSAGES[3];
+            return TRANSACTION_ERROR_MESSAGES[2];
         }
         if (operationType.getSelectionModel().getSelectedIndex() == 3
                 && !isValidRecipientBox()) {
-            return TRANSACTION_ERROR_MESSAGES[4];
+            return TRANSACTION_ERROR_MESSAGES[3];
         }
         return null;
     }
@@ -173,16 +174,49 @@ public class DashboardController {
                 && !recipientLastname.getText().isEmpty();
     }
 
-    private void executeTransaction(String transactionType) {
-        var amount = Double.parseDouble(this.amount.getText());
-        var transaction = new Transaction(amount, LocalDateTime.now(),
-                transactionType, user);
-
-        TransactionDAO transactionDAO = new TransactionDAO();
-        if (transactionDAO.makeTransaction(transaction)) {
+    private void deposit(double amount) {
+        boolean transactionDone = user.deposit(amount);
+        if (transactionDone) {
             showSuccessfulTransactionMessage();
+            updateBalanceTextField();
         } else {
-            showErrorMessage("Transaction failed. Please try again later!");
+            showErrorTransactionMessage(TRANSACTION_ERROR_MESSAGES[4]);
+        }
+    }
+
+    private void withdraw(double amount) {
+        try {
+            boolean transactionDone = user.withdraw(amount);
+            if (transactionDone) {
+                showSuccessfulTransactionMessage();
+                updateBalanceTextField();
+            } else {
+                showErrorTransactionMessage(TRANSACTION_ERROR_MESSAGES[4]);
+            }
+        } catch (NotEnoughMoneyException e) {
+            showErrorTransactionMessage(e.getMessage());
+        }
+    }
+
+    private void transfer(double amount) {
+        UserDAO dao = new UserDAO();
+        User recipient = dao.getUserByFullName(
+                recipientFirstname.getText(), recipientLastname.getText()
+        );
+        if (recipient == null) {
+            showErrorTransactionMessage("Recipient no found");
+            return;
+        }
+        try {
+            boolean transactionDone = user.transfer(amount, recipient);
+            if (transactionDone) {
+                showSuccessfulTransactionMessage();
+                updateBalanceTextField();
+            } else {
+                showErrorTransactionMessage(TRANSACTION_ERROR_MESSAGES[4]);
+            }
+        } catch (NotEnoughMoneyException e) {
+            showErrorTransactionMessage(e.getMessage());
         }
     }
 
@@ -195,7 +229,12 @@ public class DashboardController {
         success.showAndWait();
     }
 
-    private void showErrorMessage(String message) {
+    private void updateBalanceTextField() {
+        var userBalance = DECIMAL_FORMATTER.format(user.getBalance());
+        balance.setText("Balance: " + userBalance + " $");
+    }
+
+    private void showErrorTransactionMessage(String message) {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("Error");
         error.setHeaderText("Error in transaction execution");
@@ -204,7 +243,60 @@ public class DashboardController {
     }
 
     @FXML
-    public void logOutAction(MouseEvent mouseEvent) throws IOException {
+    public void clearTransactionForm() {
+        operationType.getSelectionModel().clearAndSelect(0);
+        amount.clear();
+        recipientFirstname.clear();
+        recipientLastname.clear();
+    }
+
+    public void showChangePasswordPanel() {
+        clearPanel();
+        displayPanel(passwordChangeContainer);
+    }
+
+    public void handleChangePasswordRequest() {
+        if (!isValidChangePasswordForm()) {
+            showChangePasswordErrorMessage("One or more fields are empty");
+            return;
+        }
+        if (!isValidNewPassword()) {
+            showChangePasswordErrorMessage("Passwords are not equals");
+            return;
+        }
+        if (user.changePassword(newPassword.getText())) {
+            showChangePasswordSuccessfulMessage();
+            clearPanel();
+        }
+    }
+
+    private boolean isValidChangePasswordForm() {
+        return !newPassword.getText().isEmpty()
+                || !newPasswordConfirmation.getText().isEmpty();
+    }
+
+    private boolean isValidNewPassword() {
+        return newPassword.getText().equals(newPasswordConfirmation.getText());
+    }
+
+    private void showChangePasswordErrorMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Change password error");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showChangePasswordSuccessfulMessage() {
+        Alert success = new Alert(Alert.AlertType.INFORMATION);
+        success.setTitle("Information");
+        success.setHeaderText("About changing password");
+        success.setContentText("Password successfully changed");
+        success.showAndWait();
+    }
+
+    @FXML
+    public void logOut(MouseEvent mouseEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass()
                 .getResource("/com/bank/guibank/view/MainPage.fxml"));
         Scene mainScene = new Scene(fxmlLoader.load());

@@ -13,8 +13,9 @@
     <VBox styleClass="menu-container">
         <Button onMouseClicked="#handleShowDataRequest">Show my data</Button>
         <Button onMouseClicked="#showTransactionPanel">Make transaction</Button>
+        <Button onMouseClicked="#showChangePasswordPanel">Change password</Button>
         <Button wrapText="true">Remove my account</Button>
-        <Button onMouseClicked="#logOutAction">Log out</Button>
+        <Button onMouseClicked="#logOut">Log out</Button>
     </VBox>
 
     <VBox styleClass="content-container">
@@ -36,17 +37,18 @@
 
         <GridPane fx:id="transactionContainer" styleClass="transaction-container">
             <!--            Column 1-->
-            <Label text="Transaction type" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <Label text="Amount" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="0">
+            <Label fx:id="balance" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Label text="Transaction type" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Label text="Amount" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="0">
                 <Label text="Recipient"/>
             </AnchorPane>
-            <HBox alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="0">
+            <HBox alignment="CENTER" GridPane.rowIndex="4" GridPane.columnIndex="0">
                 <Button text="Clear" onMouseClicked="#clearTransactionForm"/>
             </HBox>
 
             <!--            Column 2-->
-            <ChoiceBox GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="operationType"
+            <ChoiceBox GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="operationType"
                        onAction="#setEnableRecipientBox">
                 <String fx:value="Select operation"/>
                 <String fx:value="Deposit"/>
@@ -54,9 +56,9 @@
                 <String fx:value="Transfer"/>
             </ChoiceBox>
 
-            <NumericField GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="amount"/>
+            <NumericField GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="amount"/>
 
-            <VBox GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="recipientBox"
+            <VBox GridPane.rowIndex="3" GridPane.columnIndex="1" fx:id="recipientBox"
                   styleClass="recipient-inner-container" disable="true">
                 <BorderPane>
                     <top>
@@ -76,10 +78,21 @@
                 </BorderPane>
             </VBox>
 
-            <HBox alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="1">
+            <HBox alignment="CENTER" GridPane.rowIndex="4" GridPane.columnIndex="1">
                 <Button text="Submit" onMouseClicked="#handleTransactionRequest"/>
             </HBox>
         </GridPane>
 
+        <VBox fx:id="passwordChangeContainer" styleClass="change-password-container">
+            <HBox styleClass="block">
+                <Label text="New password"/>
+                <PasswordField fx:id="newPassword"/>
+            </HBox>
+            <HBox styleClass="block">
+                <Label text="Confirm password"/>
+                <PasswordField fx:id="newPasswordConfirmation"/>
+            </HBox>
+            <Button text="Change password" onMouseClicked="#handleChangePasswordRequest"/>
+        </VBox>
     </VBox>
 </HBox>

@@ -28,21 +28,12 @@ public class LoginController {
 
 
     @FXML
-    public void goBackBtnAction(MouseEvent mouseEvent) throws IOException {
+    public void goToPreviousPage(MouseEvent mouseEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass()
                 .getResource("/com/bank/guibank/view/MainPage.fxml"));
         Scene mainScene = new Scene(fxmlLoader.load());
         StageManagement.switchScene(mouseEvent, mainScene,
                 StageTitles.MAIN_PAGE);
-    }
-
-    @FXML
-    public void registerBtnAction(MouseEvent mouseEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/com/bank/guibank/view/user/RegisterValidation.fxml"));
-        Scene registerPage1 = new Scene(loader.load());
-        StageManagement.switchScene(mouseEvent, registerPage1,
-                StageTitles.USER_REGISTER);
     }
 
     @FXML
@@ -75,5 +66,23 @@ public class LoginController {
 
     private boolean isValidAccount(UserAccount userAccount, String password) {
         return userAccount != null && userAccount.getPassword().equals(password);
+    }
+
+    @FXML
+    public void setForgotPassword(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/com/bank/guibank/view/user/ForgotPassword.fxml"));
+        Scene registerPage1 = new Scene(loader.load());
+        StageManagement.switchScene(mouseEvent, registerPage1,
+                StageTitles.USER_FORGOT_PASSWORD);
+    }
+
+    @FXML
+    public void setRegisterBtnAction(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/com/bank/guibank/view/user/RegisterValidation.fxml"));
+        Scene registerPage1 = new Scene(loader.load());
+        StageManagement.switchScene(mouseEvent, registerPage1,
+                StageTitles.USER_REGISTER);
     }
 }

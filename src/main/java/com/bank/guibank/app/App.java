@@ -1,6 +1,5 @@
 package com.bank.guibank.app;
 
-import com.bank.guibank.model.transactions.utils.TransactionType;
 import com.bank.guibank.util.StageTitles;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

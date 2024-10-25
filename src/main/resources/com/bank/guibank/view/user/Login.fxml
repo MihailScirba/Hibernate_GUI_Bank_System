@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.Region?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml" stylesheets="@../css/user/Login.css"
       fx:controller="com.bank.guibank.controller.user.LoginController"
@@ -20,11 +21,12 @@
         <PasswordField fx:id="password" onAction="#handleLoginRequest"/>
     </HBox>
     <HBox styleClass="register-container">
-        <Button text="Register an account" styleClass="register-btn"
-                onMouseClicked="#registerBtnAction"/>
+        <Button text="Forgot password?" onMouseClicked="#setForgotPassword"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Register an account" onMouseClicked="#setRegisterBtnAction"/>
     </HBox>
     <Label text="Wrong username or password"
            fx:id="errorMessage" styleClass="error-message"/>
     <Button text="Login" onMouseClicked="#handleLoginRequest"/>
-    <Button text="Go Back" onMouseClicked="#goBackBtnAction"/>
+    <Button text="Go Back" onMouseClicked="#goToPreviousPage"/>
 </VBox>

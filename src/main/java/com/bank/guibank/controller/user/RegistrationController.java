@@ -1,7 +1,6 @@
 package com.bank.guibank.controller.user;
 
 import com.bank.guibank.model.database.user.UserAccountDAO;
-import com.bank.guibank.model.database.user.UserDAO;
 import com.bank.guibank.model.user.User;
 import com.bank.guibank.model.user.UserAccount;
 import com.bank.guibank.util.StageManagement;
@@ -36,7 +35,7 @@ public class RegistrationController {
     private User user;
 
     @FXML
-    public void goBackBtnAction(Event event) throws IOException {
+    public void goToPreviousPage(Event event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass()
                 .getResource("/com/bank/guibank/view/user/Login.fxml"));
         Scene loginScene = new Scene(fxmlLoader.load());
@@ -57,7 +56,7 @@ public class RegistrationController {
                 UserAccount userAccount = new UserAccount(username, password,
                         user);
                 userAccountDAO.addUserAccount(userAccount);
-                goBackBtnAction(event);
+                goToPreviousPage(event);
             } catch (Exception e) {
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -48,23 +48,23 @@
 }
 
 .register-container {
-    -fx-alignment: BASELINE-RIGHT;
+    -fx-alignment: CENTER;
     -fx-padding: 0 50 0 50;
     -fx-pref-height: 10;
 }
 
-.register-btn {
+.register-container > .button {
     -fx-background-color: none;
     -fx-text-fill: blue;
     -fx-font-size: 12;
     -fx-pref-height: 10;
 }
 
-.register-btn:hover {
+.register-container > .button:hover {
     -fx-underline: true;
 }
 
-.register-btn:pressed {
+.register-container > .button:pressed {
     -fx-text-fill: red;
 }
 

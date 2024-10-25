@@ -9,7 +9,7 @@
       fx:controller="com.bank.guibank.controller.MainPageController">
 
     <Label>Log In As</Label>
-    <Button onMouseClicked="#userBtnAction">User</Button>
+    <Button onMouseClicked="#goToUserLogin">User</Button>
     <Button>Administrator</Button>
     <Button onMouseClicked="#exitBtnAction">Exit</Button>
 </VBox>

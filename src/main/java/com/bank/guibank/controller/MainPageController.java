@@ -12,7 +12,7 @@ import java.io.IOException;
 public class MainPageController {
 
     @FXML
-    public void userBtnAction(MouseEvent mouseEvent) throws IOException {
+    public void goToUserLogin(MouseEvent mouseEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass()
                 .getResource("/com/bank/guibank/view/user/Login.fxml"));
         Scene userScene = new Scene(fxmlLoader.load());
