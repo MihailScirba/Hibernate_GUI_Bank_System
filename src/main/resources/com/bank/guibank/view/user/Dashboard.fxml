@@ -14,7 +14,7 @@
         <Button onMouseClicked="#handleShowDataRequest">Show my data</Button>
         <Button onMouseClicked="#showTransactionPanel">Make transaction</Button>
         <Button onMouseClicked="#showChangePasswordPanel">Change password</Button>
-        <Button wrapText="true">Remove my account</Button>
+        <Button onMouseClicked="#handleRemoveAccountRequest" wrapText="true">Remove my account</Button>
         <Button onMouseClicked="#logOut">Log out</Button>
     </VBox>
 
@@ -90,7 +90,7 @@
             </HBox>
             <HBox styleClass="block">
                 <Label text="Confirm password"/>
-                <PasswordField fx:id="newPasswordConfirmation"/>
+                <PasswordField fx:id="newPasswordConfirmation" onAction="#handleChangePasswordRequest"/>
             </HBox>
             <Button text="Change password" onMouseClicked="#handleChangePasswordRequest"/>
         </VBox>

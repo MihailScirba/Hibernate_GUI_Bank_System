@@ -2,12 +2,14 @@ package com.bank.guibank.model.user;
 
 import com.bank.guibank.model.database.transaction.TransactionDAO;
 import com.bank.guibank.model.database.user.UserAccountDAO;
-import com.bank.guibank.model.interfaces.UserOperationsInterface;
+import com.bank.guibank.model.interfaces.UserAccountOperationsInterface;
+import com.bank.guibank.model.interfaces.UserTransactionsInterface;
 import com.bank.guibank.model.transactions.Transaction;
 import com.bank.guibank.model.user.exceptions.NotEnoughMoneyException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,7 +18,8 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "users")
-public class User implements UserOperationsInterface {
+public class User implements UserTransactionsInterface,
+        UserAccountOperationsInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -77,7 +80,7 @@ public class User implements UserOperationsInterface {
     }
 
     @Override
-    public boolean transfer(double amount, User recipient)
+    public boolean transfer(double amount, @NotNull User recipient)
             throws NotEnoughMoneyException {
         if (this.balance < amount) {
             throw new NotEnoughMoneyException();
@@ -95,8 +98,13 @@ public class User implements UserOperationsInterface {
 
     public boolean changePassword(String newPassword) {
         UserAccountDAO dao = new UserAccountDAO();
-        var userAccount = dao.getUserAccountById(this.id);
         userAccount.setPassword(newPassword);
         return dao.updateUserAccount(userAccount);
+    }
+
+    public boolean removeAccount() {
+        UserAccountDAO dao = new UserAccountDAO();
+        this.account = false;
+        return dao.removeUserAccount(userAccount);
     }
 }

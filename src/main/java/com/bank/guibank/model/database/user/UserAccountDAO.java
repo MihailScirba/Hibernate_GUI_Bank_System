@@ -56,4 +56,20 @@ public class UserAccountDAO {
             }
         }
     }
+
+    public boolean removeUserAccount(UserAccount userAccount) {
+        try (Session session = HibernateFactory.getSessionFactory()
+                .openSession()) {
+            try {
+                session.beginTransaction();
+                session.remove(userAccount);
+                session.merge(userAccount.getUser());
+                session.getTransaction().commit();
+                return true;
+            } catch (Exception e)  {
+                session.getTransaction().rollback();
+                return false;
+            }
+        }
+    }
 }

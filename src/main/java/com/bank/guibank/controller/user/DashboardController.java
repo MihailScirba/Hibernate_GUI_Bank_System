@@ -255,6 +255,7 @@ public class DashboardController {
         displayPanel(passwordChangeContainer);
     }
 
+    @FXML
     public void handleChangePasswordRequest() {
         if (!isValidChangePasswordForm()) {
             showChangePasswordErrorMessage("One or more fields are empty");
@@ -267,6 +268,8 @@ public class DashboardController {
         if (user.changePassword(newPassword.getText())) {
             showChangePasswordSuccessfulMessage();
             clearPanel();
+        } else {
+            showChangePasswordErrorMessage("Something went wrong");
         }
     }
 
@@ -293,6 +296,33 @@ public class DashboardController {
         success.setHeaderText("About changing password");
         success.setContentText("Password successfully changed");
         success.showAndWait();
+    }
+
+    @FXML
+    public void handleRemoveAccountRequest(MouseEvent mouseEvent)
+            throws IOException {
+        if (user.removeAccount()) {
+            showRemoveAccountSuccessfulMessage();
+            logOut(mouseEvent);
+        } else {
+            showRemoveAccountErrorMessage();
+        }
+    }
+
+    private void showRemoveAccountSuccessfulMessage() {
+        Alert success = new Alert(Alert.AlertType.INFORMATION);
+        success.setTitle("Information");
+        success.setHeaderText("Remove account");
+        success.setContentText("Account successfully removed");
+        success.showAndWait();
+    }
+
+    private void showRemoveAccountErrorMessage() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Remove account error");
+        alert.setContentText("Something went wrong");
+        alert.showAndWait();
     }
 
     @FXML
