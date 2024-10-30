@@ -6,6 +6,7 @@ import com.bank.guibank.model.interfaces.UserAccountOperationsInterface;
 import com.bank.guibank.model.interfaces.UserTransactionsInterface;
 import com.bank.guibank.model.transactions.Transaction;
 import com.bank.guibank.model.user.exceptions.NotEnoughMoneyException;
+import com.bank.guibank.model.user.exceptions.UserHasAccountException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -97,14 +98,23 @@ public class User implements UserTransactionsInterface,
     }
 
     public boolean changePassword(String newPassword) {
-        UserAccountDAO dao = new UserAccountDAO();
         userAccount.setPassword(newPassword);
-        return dao.updateUserAccount(userAccount);
+        return new UserAccountDAO().updateUserAccount(userAccount);
+    }
+
+    @Override
+    public boolean registerAccount(String username, String password)
+            throws UserHasAccountException {
+        if (this.userAccount != null && this.account) {
+            throw new UserHasAccountException("User already has account");
+        }
+        this.account = true;
+        userAccount = new UserAccount(username, password, this);
+        return new UserAccountDAO().addUserAccount(userAccount);
     }
 
     public boolean removeAccount() {
-        UserAccountDAO dao = new UserAccountDAO();
         this.account = false;
-        return dao.removeUserAccount(userAccount);
+        return new UserAccountDAO().removeUserAccount(userAccount);
     }
 }

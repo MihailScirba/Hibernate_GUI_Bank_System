@@ -7,17 +7,18 @@ import org.hibernate.query.SelectionQuery;
 
 public class UserAccountDAO {
 
-    public void addUserAccount(UserAccount userAccount) {
+    public boolean addUserAccount(UserAccount userAccount) {
         try (Session session = HibernateFactory.getSessionFactory()
                 .openSession()){
             try {
                 session.beginTransaction();
-                userAccount.getUser().setAccount(true);
                 session.merge(userAccount.getUser());
                 session.persist(userAccount);
                 session.getTransaction().commit();
+                return true;
             } catch (Exception e) {
                 session.getTransaction().rollback();
+                return false;
             }
         }
     }
