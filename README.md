@@ -1,1 +1,1 @@
-The goal of this project is to master basics of hibernate framework. For better navigation and user-friendly interface i used javaFX(just easier usage). The project is not done yet.
+The goal of this project is to master basics of hibernate framework. For better navigation and user-friendly interface i used javaFX(just easier usage). The project is not done yet. I couldn't finished it, because I was having a lot of homework at college and not enough time to work on project. Nevertheless I got some part of basics from Hibernate.
